@@ -1,0 +1,70 @@
+#include "Common.hlsli"
+#include "Lighting.hlsli"
+#include "Material.hlsli"
+#include "MaterialParameters.hlsli"
+
+Texture2D AlbedoTexture : register(t0);
+Texture2D NormalTexture : register(t1);
+Texture2D MaterialTexture : register(t2);
+Texture2D EmissionTexture : register(t3);
+
+struct GBufferOutput
+{
+    float4 AlbedoTexture : SV_TARGET0;
+    float4 WorldNormalDepth : SV_TARGET1;
+    float4 SurfaceTexture : SV_TARGET2;
+    float4 Emission : SV_TARGET3;
+    float4 WorldPosition : SV_TARGET4;
+};
+
+GBufferOutput main(VStoPS aPixel)
+{
+    const float4 sampleAlbedo = AlbedoTexture.Sample(TrilinearWrap, aPixel.UV0);
+    const float2 sampleNormal = NormalTexture.Sample(TrilinearWrap, aPixel.UV0).xy;
+    const float3 pixelNormal = GetWorldNormal(sampleNormal, aPixel.Normal, aPixel.Tangent, aPixel.BiNormal);
+    const float4 sampleSurface = MaterialTexture.Sample(TrilinearWrap, aPixel.UV0);
+    const float3 emissionColor = EmissionTexture.Sample(TrilinearWrap, aPixel.UV0).rgb;
+
+	
+    MaterialPixelParameters parameters;
+    parameters.PixelColor = sampleAlbedo;
+    parameters.VertexColor = aPixel.Color;
+    parameters.SurfaceValues = sampleSurface;
+    parameters.WorldPosition = aPixel.WorldPosition;
+    parameters.UV0 = aPixel.UV0;
+    parameters.UV1 = aPixel.UV1;
+    parameters.ScreenPosition = aPixel.Position.xy;
+    parameters.Normal = pixelNormal;
+    parameters.VertexNormal = aPixel.Normal;
+    parameters.Tangent = aPixel.Tangent;
+    parameters.BiNormal = aPixel.BiNormal;
+    parameters.Emission = float4(emissionColor, 0);
+	
+    Material_Pixel(parameters);
+ 
+    GBufferOutput result;
+    result.AlbedoTexture = parameters.PixelColor;
+    switch (FB_RenderPassType)
+    {
+        case 7:
+        {
+            // Material hooks can blend or project normals without using NormalTexture.
+            // Show their final normal in the mesh tangent frame, rather than slot 1.
+            const float3 finalNormal = normalize(parameters.Normal);
+            const float3 localNormal = float3(dot(finalNormal, normalize(aPixel.Tangent)),
+                dot(finalNormal, normalize(aPixel.BiNormal)), dot(finalNormal, normalize(aPixel.Normal)));
+            result.WorldNormalDepth = float4(localNormal * 0.5 + 0.5, 1);
+            break;
+        }
+        
+        default:
+            result.WorldNormalDepth = float4(parameters.Normal, aPixel.ViewDepth);
+            break;
+    }
+    result.SurfaceTexture = float4(parameters.SurfaceValues.rgb, 0);
+    // Preserve linear HDR emission for lighting, debug views, and bloom alike.
+    result.Emission = parameters.Emission;
+    result.WorldPosition = parameters.WorldPosition;
+    
+    return result;
+}

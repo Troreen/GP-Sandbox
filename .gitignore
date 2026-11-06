@@ -1,0 +1,10 @@
+/Bin/
+/Lib/
+/Intermediate/
+/.vs/
+*.vcxproj.user
+*.log
+imgui.ini
+*.pdb
+*.obj
+*.idb

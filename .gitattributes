@@ -1,0 +1,12 @@
+* text=auto
+*.cpp text eol=crlf
+*.h text eol=crlf
+*.hpp text eol=crlf
+*.hlsl text eol=crlf
+*.hlsli text eol=crlf
+*.bat text eol=crlf
+*.fbx binary
+*.dds binary
+*.lib binary
+*.dll binary
+*.exe binary

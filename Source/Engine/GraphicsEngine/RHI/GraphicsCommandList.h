@@ -1,0 +1,66 @@
+#pragma once
+
+#include "PipelineStateObject.h"
+
+#include <wrl.h>
+
+class GraphicsCommandList
+{
+	friend class RenderHardwareInterface;
+
+public:
+	GraphicsCommandList();
+	~GraphicsCommandList();
+
+	GraphicsCommandList(const GraphicsCommandList&) = delete;
+	GraphicsCommandList& operator=(const GraphicsCommandList&) = delete;
+
+	GraphicsCommandList(GraphicsCommandList&& aOther) noexcept;
+	GraphicsCommandList& operator=(GraphicsCommandList&& aOther) noexcept;
+
+	bool FinishCommandList();
+	void ResetCommandList();
+
+	bool IsReadyForExecution() const { return myCommandList; }
+
+	void ClearRenderTarget(const Texture& aTarget) const;
+	void ClearDepthStencilView(const Texture& aTarget) const;
+	void SetRenderTarget(const Texture* aTarget, const Texture* aDepthStencil) const;
+	void SetRenderTarget(const Texture** aTargetList, unsigned aNumTargets, const Texture* aDepthStencil) const;
+
+	bool UpdateConstantBuffer(const Buffer& aConstantBuffer, const void* aBufferData, size_t aBufferDataSize) const;
+	bool UpdateDynamicVertexBuffer(const Buffer& aVertexBuffer, const Vertex* aVertices, size_t aVertexCount) const;
+	bool UpdateDynamicVertexBuffer(const Buffer& aVertexBuffer, const SimpleVertex* aVertices, size_t aVertexCount) const;
+
+	void SetVertexBuffer(const Buffer* aBuffer) const;
+	void SetIndexBuffer(const Buffer* aBuffer) const;
+	void SetConstantBuffer(const Buffer* aBuffer, unsigned aSlot, PipelineStages aStages) const;
+	void SetPipelineState(const PipelineStateObject& aPSO) const;
+
+	void SetShaderResource(const Texture* aResource, unsigned aSlot, PipelineStages aStages) const;
+	void SetShaderResources(const Texture* const* aResourcesList, size_t aNumResources, unsigned aStartSlot, PipelineStages aStages) const;
+	void SetShaderSamplers(const Sampler* const* aSamplerList, size_t aNumSamplers, unsigned aStartSlot, PipelineStages aStages) const;
+
+	void Draw(unsigned aNumVertices) const;
+	void DrawIndexed(unsigned aIndexCount, unsigned aIndexOffset) const;
+
+	void SetMarker(std::string_view aMarker) const;
+	void BeginEvent(std::string_view aEvent) const;
+	void EndEvent() const;
+
+	void SetOverridePipelineState(const PipelineStateObject& aOverridePSO, PipelineStages aOverrideStages);
+	void ChangeActiveOverrides(PipelineStages aOverrideFlags);
+	bool IsOverrideActive(PipelineStages aOverride) const;
+	void ClearOverridePipelineState();
+
+private:
+	PipelineStateObject myOverridePipelineState;
+
+	std::string myName;
+
+	Microsoft::WRL::ComPtr<struct ID3D11DeviceContext> myContext;
+	Microsoft::WRL::ComPtr<struct ID3D11CommandList> myCommandList;
+	Microsoft::WRL::ComPtr<struct ID3DUserDefinedAnnotation> myUDA;
+
+	PipelineStages myCurrentOverrides = PipelineStage_None;
+};

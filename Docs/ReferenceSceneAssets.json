@@ -1,0 +1,95 @@
+{
+  "commit": "d583fa1",
+  "assets": [
+    {
+      "source": "Assets/Meshes/Props/SM_Chest.fbx",
+      "destination": "Content/Meshes/Props/SM_Chest.fbx",
+      "sha256": "df1ff505093cdfad2fa2eaced5c1c6c40755bda91664b6e499abe146cfb41a2f"
+    },
+    {
+      "source": "Assets/Meshes/Props/SM_Color_Checker.fbx",
+      "destination": "Content/Meshes/Props/SM_Color_Checker.fbx",
+      "sha256": "06204ba4fd7a53f882fa808c58abe23c6407e8c1871acf55f67a80147a5f63ec"
+    },
+    {
+      "source": "Assets/Meshes/Characters/TGA_Bro/SK_C_TGA_Bro.fbx",
+      "destination": "Content/Meshes/Characters/TGA_Bro/SK_C_TGA_Bro.fbx",
+      "sha256": "01ffa32491cc14a61245a7af458fe2852f2964d2291103b424d850a53f29cf9f"
+    },
+    {
+      "source": "Assets/Animations/Characters/TGA_Bro/Idle/A_C_TGA_Bro_Idle_Brething.fbx",
+      "destination": "Content/Animations/Characters/TGA_Bro/Idle/A_C_TGA_Bro_Idle_Brething.fbx",
+      "sha256": "e927032ad370ceac3a5ce12e806cf4fc253c9854d4531a8ede7478328e384461"
+    },
+    {
+      "source": "Assets/Textures/T_Chest_C.dds",
+      "destination": "Content/Textures/T_Chest_C.dds",
+      "sha256": "ec5e8606a94b4a94d5e963a271f2734b94144d4ce91390e6c6a3ba41084920b8"
+    },
+    {
+      "source": "Assets/Textures/T_Chest_N.dds",
+      "destination": "Content/Textures/T_Chest_N.dds",
+      "sha256": "b94b4a759c2f895c7084e7758cfc902d09efadb2684502d17fa8238b0ef5b7ce"
+    },
+    {
+      "source": "Assets/Textures/T_Chest_M.dds",
+      "destination": "Content/Textures/T_Chest_M.dds",
+      "sha256": "65a0b0b166ca2ae04590cf93706eb7f7582d5da5b6977cfdaa3f4e6e1f815acb"
+    },
+    {
+      "source": "Assets/Textures/T_Color_Checker_C.dds",
+      "destination": "Content/Textures/T_Color_Checker_C.dds",
+      "sha256": "5bce03bd108a458c1fed6160befbead36de60549f9fdb19c257d82b5a5901421"
+    },
+    {
+      "source": "Assets/Textures/T_Color_Checker_N.dds",
+      "destination": "Content/Textures/T_Color_Checker_N.dds",
+      "sha256": "7202c79de6556613d73301ea4ebe2e31799df6e00aea772897730531b1cd18eb"
+    },
+    {
+      "source": "Assets/Textures/T_Color_Checker_M.dds",
+      "destination": "Content/Textures/T_Color_Checker_M.dds",
+      "sha256": "e5d1bc1c288f5e2d741abaaac7fdf4b761c9d3b34491a7ab925ae85e437b7dd5"
+    },
+    {
+      "source": "Assets/Textures/T_TGA_Bro_C.dds",
+      "destination": "Content/Textures/T_TGA_Bro_C.dds",
+      "sha256": "8f4e6d20d054a2a9d3564d30af41fa6ac4659237c126d166e040ac366f18439c"
+    },
+    {
+      "source": "Assets/Textures/T_TGA_Bro_N.dds",
+      "destination": "Content/Textures/T_TGA_Bro_N.dds",
+      "sha256": "9f9e229e3281dfcd5011f0f7ceae9078c8963c6e9cb277fe1c5b30baf69cdf88"
+    },
+    {
+      "source": "Assets/Textures/T_TGA_Bro_M.dds",
+      "destination": "Content/Textures/T_TGA_Bro_M.dds",
+      "sha256": "df8773a73dc9f4cb820429169c14777fd3b617f4db9fa5f8adb1e5f929a5d467"
+    },
+    {
+      "source": "Assets/Textures/T_Marble_Tiles_C.dds",
+      "destination": "Content/Textures/T_Marble_Tiles_C.dds",
+      "sha256": "f7d1dc8dfae6e8257f0370a9cb19fe8c2c5a0f6ef3d0635d939328cc5fbe5376"
+    },
+    {
+      "source": "Assets/Textures/T_Marble_Tiles_N.dds",
+      "destination": "Content/Textures/T_Marble_Tiles_N.dds",
+      "sha256": "076aadbe0bee3194d93067f0885a9e27625a9dbc8115f84256087debd4d50b5d"
+    },
+    {
+      "source": "Assets/Textures/T_Marble_Tiles_ORM.dds",
+      "destination": "Content/Textures/T_Marble_Tiles_ORM.dds",
+      "sha256": "41503054249e956af8eb2639dd0ddcfa4bf9c575ddc534f361ccdd4a2cf42bad"
+    },
+    {
+      "source": "Assets/Textures/T_Shipyard.dds",
+      "destination": "Content/Textures/T_Shipyard.dds",
+      "sha256": "8b853e5becb3d7991a8b7c0dc32bab9ef24a35c221e73fc5309d432161a23688"
+    }
+  ],
+  "material_adaptations": [
+    "texture/shader paths relocated under Content",
+    "material constant buffer moved from b3 to current renderer b4",
+    "Chest opts into HDR emission from cyan albedo inlays; original DDS blobs unchanged"
+  ]
+}
